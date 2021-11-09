@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1636473358 source:/home/apprenant/Documents/consolidation_C_PHP/Day2/NotesEtMoyennes/main.c
+	<stdio.h>
+	<stdlib.h>
+
