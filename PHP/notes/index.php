@@ -44,40 +44,45 @@
     $mediumIndi;
     $mediumTotal;
     $sumTotal;
-    if(isset($_POST("submit"))){
+    $sumNotes;
+    $nbNotesTotal = 12;
+    $nbNotesIndi = 4;
+    //déclaration des variables $eleve afin de récupérer les datas
+    $eleve1;
+    $eleve2;
+    $eleve3;
+    //récupération des données passées dans le formulaire et association aux variables eleves
+    if(isset($_POST["submit"])){
       $eleve1 = array('note1' => $_POST["note1-1"], 'note2' => $_POST["note1-2"], 'note3' => $_POST["note1-3"], 'note4' => $_POST["note1-4"]);
-      print_r($eleve1);
-      exit;
-    }
+      $eleve2 = array('note1' => $_POST["note2-1"], 'note2' => $_POST["note2-2"], 'note3' => $_POST["note2-3"], 'note4' => $_POST["note2-4"]);
+      $eleve3 = array('note1' => $_POST["note3-1"], 'note2' => $_POST["note3-2"], 'note3' => $_POST["note3-3"], 'note4' => $_POST["note3-4"]);
+    };
 
-    //$totalNotesEleve = 4;
-    //$totalNotes = 12;
     //définition du tableau de notes
     $tableauNotes = array(
-      "eleve1" => [<?php ?>,]
-      "eleve2" => [13, 14, 15, 16],
-      "eleve3" => [9, 10, 12, 14],
+      "eleve1" => $eleve1;
+      "eleve2" => $eleve2;
+      "eleve3" => $eleve3;
     );
-
     //affichage du tableau en brut
     print_r($tableauNotes);
 
-    //Pour calculer les sommes individuelles
+    //on analyse chacune des valeurs du tableau $tableauNotes
     foreach($tableauNotes as $eleves => $notes){
       //on déclare les variables que l'on réutilisera pour le calcul de la somme totale
       $sumNotes;
-      //pour chacune des notes en valeur
-      for($i=0; $i<4; $i++){
+      //comme le tableauNotes a comme valeur d'autres tableaux (les tableaux $eleves), on réitere un foreach pour analyser toutes les datas dans les tableaux $eleves
+      foreach($eleve as $noteNb => $note){
         //on utilise la fonction array_sum pour faire la somme des valeurs du tableau, et on y attribue une variable $sumNotes
-        $sumNotes[$eleves] = array_sum($notes);
-    //on affiche la somme pour chacun des élèves
-    echo "Les sommes des notes pour les eleves individuels sont:"; print_r($sumNotes);
-    //on utilise ce tableau $sumNotes pour effectuer la somme totale des notes
-    $sumTotal = array_sum($sumNotes);
-    //on renvoie le résultat total
-    echo "La somme de toutes les notes est de:"; print_r($sumTotal);
-    //Calcul des moyennes individuelles:
-    echo "$sumNotes[1]";
+        $sumNotes[$eleve] = array_sum($note);
+      };
+      //Calcul des moyennes individuelles:
+      $mediumIndi = $sumNotes[$eleve]/$nbNotesIndi;
+      echo "La moyenne de l'eleve est $mediumIndi";
+
+    //calcul de la somme totale des notes
+    $sumTotal = array_sum($sumNotes[$eleve][$note]);
+
     //calcul de la moyenne générale
     $mediumTotal = $sumTotal/$totalNotes;
     echo "La moyenne des eleves est de: $mediumTotal";
